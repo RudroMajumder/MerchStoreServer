@@ -2,6 +2,7 @@ const express = require('express')
 require('dotenv').config();
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const ObjectID = require('mongodb').ObjectID;
 
 const app = express();
 app.use(cors());
@@ -32,6 +33,12 @@ client.connect(err => {
       res.send(documents);
     })
   })
+
+  app.post('/productById',(req,res)=>{
+    const id = ObjectID(req.body);
+    console.log(id) 
+  })
+
 });
 
 
