@@ -3,6 +3,7 @@ require('dotenv').config();
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const ObjectID = require('mongodb').ObjectID;
+const admin = require('firebase-admin');
 
 const app = express();
 app.use(cors());
@@ -56,6 +57,13 @@ client.connect(err => {
     .then( (result)=>{
       console.log(result)
       res.redirect(req.originalUrl)
+    })
+  })
+
+  app.get('/orders',(req,res)=>{
+    orderCollection.find({email:req.query.email})
+    .toArray((err,documents)=>{
+      res.send(documents)
     })
   })
 
